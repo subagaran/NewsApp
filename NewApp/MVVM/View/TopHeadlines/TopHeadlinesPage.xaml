@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NewsApp.MVVM.View.TopHeadlines.TopHeadlinesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:NewsApp.MVVM.Model"
+    xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.TopHeadlines"
+    Title="News Category"
+    x:DataType="viewmodel:TopHeadlinesViewModel">
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid
+            Grid.Row="0"
+            Padding="10,5,10,5"
+            ColumnDefinitions="Auto,*"
+            VerticalOptions="Center">
+
+            <Grid
+                Grid.Column="1"
+                ColumnDefinitions="*,Auto,Auto,Auto,Auto"
+                ColumnSpacing="2"
+                HorizontalOptions="End">
+
+                <Button
+                    x:Name="Sports"
+                    Grid.Column="1"
+                    Padding="8"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    Command="{Binding GetTopHeadlinesBasedOnCategoryCommand}"
+                    HorizontalOptions="End"
+                    Pressed="todayBtn_Pressed"
+                    Text="Sports"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+
+                <Button
+                    x:Name="Health"
+                    Grid.Column="2"
+                    Padding="8"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    Command="{Binding GetTopHeadlinesBasedOnCategoryCommand}"
+                    HorizontalOptions="Center"
+                    Pressed="todayBtn_Pressed"
+                    Text="Health"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+
+
+                <Button
+                    x:Name="Entertainment"
+                    Grid.Column="3"
+                    Padding="8"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    Command="{Binding GetTopHeadlinesBasedOnCategoryCommand}"
+                    HorizontalOptions="Center"
+                    Pressed="todayBtn_Pressed"
+                    Text="Entertainment"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+
+                <Button
+                    x:Name="Business"
+                    Grid.Column="4"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    Command="{Binding GetTopHeadlinesBasedOnCategoryCommand}"
+                    HorizontalOptions="Start"
+                    Pressed="todayBtn_Pressed"
+                    Text="Business"
+                    TextColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+
+
+
+
+        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+            <Label Text="{Binding ShowMessage}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+        <ScrollView Grid.Row="1">
+
+            <CollectionView
+                x:Name="NewsArticleCollection"
+                BackgroundColor="Transparent"
+                EmptyView="No Data Found"
+                HorizontalOptions="CenterAndExpand"
+                ItemsSource="{Binding AllTopHeadlines}"
+                VerticalOptions="Start">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Headlines">
+                        <StackLayout>
+                            <Frame
+                                Margin="5,2,5,2"
+                                Padding="10"
+                                BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference NewsArticleCollection}, Path=BindingContext.GoToArticleVewCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout Orientation="Vertical">
+                                    <Grid
+                                        ColumnDefinitions="Auto,*,*"
+                                        ColumnSpacing="10"
+                                        RowDefinitions="*,Auto,*,*">
+
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding Author}"
+                                            TextColor="Black" />
+
+
+                                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                                            <Image
+                                                HorizontalOptions="StartAndExpand"
+                                                MaximumHeightRequest="150"
+                                                MaximumWidthRequest="200"
+                                                Source="{Binding UrlImage}"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="3"
+                                            FontAttributes="Bold"
+                                            StyleClass="LblBlackR2"
+                                            Text="{Binding Description}" />
+
+
+                                    </Grid>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

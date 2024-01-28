@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NewApp.MVVM.View.Home.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:NewsApp.MVVM.Model"
+    xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.Home"
+    Title="Articles"
+    x:DataType="viewmodel:HomeViewModel"
+    BackgroundColor="#d6dce2">
+
+    <Grid
+        Padding="1"
+        RowDefinitions="Auto,Auto,*"
+        RowSpacing="5">
+
+        <Frame Grid.Row="0">
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+                <VerticalStackLayout Grid.Row="0">
+                    <Label HorizontalOptions="Center" Text="Good Morning" />
+                    <Label
+                        HorizontalOptions="Center"
+                        Text="Mr.Alan"
+                        VerticalOptions="Center" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label HorizontalOptions="Center" Text="News Articles" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Text="{Binding NewsArticlesCount}"
+                        VerticalOptions="Center" />
+                </VerticalStackLayout>
+
+
+            </Grid>
+
+
+
+        </Frame>
+
+        <Grid
+            Grid.Row="1"
+            Padding="20,10,20,0"
+            ColumnDefinitions="*,*"
+            ColumnSpacing="10"
+            HorizontalOptions="Center"
+            RowDefinitions="75,75"
+            RowSpacing="5"
+            VerticalOptions="CenterAndExpand">
+
+            <Button
+                Grid.Column="0"
+                Command="{Binding GotoSearchPageCommand}"
+                Text="Search Articles" />
+
+            <Button
+                Grid.Column="1"
+                Command="{Binding GotoNewsArticlePageCommand}"
+                Text="News History" />
+            <Button
+                Grid.Row="1"
+                Command="{Binding GotoHeadlinePageCommand}"
+                Text="Headlines" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Command="{Binding GotoHeadlineCountryPageCommand}"
+                Text="News Country" />
+
+        </Grid>
+
+
+        <ScrollView Grid.Row="3">
+
+            <CollectionView
+                x:Name="NewsArticleCollection"
+                BackgroundColor="White"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding Article}"
+                RemainingItemsThreshold="1"
+                VerticalOptions="Start">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Articles">
+                        <StackLayout>
+                            <Frame
+                                Margin="5,2,5,2"
+                                Padding="10"
+                                BorderColor="Transparent">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference NewsArticleCollection}, Path=BindingContext.GoToArticleVewCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <StackLayout Orientation="Vertical">
+                                    <Grid
+                                        ColumnDefinitions="Auto,*,*"
+                                        ColumnSpacing="10"
+                                        RowDefinitions="*,Auto,Auto,*,*">
+
+                                        <Label
+                                            Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            FontSize="25"
+                                            Text="{Binding Author}"
+                                            TextColor="Black" />
+
+
+                                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                                            <Image
+                                                HorizontalOptions="StartAndExpand"
+                                                MaximumHeightRequest="150"
+                                                MaximumWidthRequest="200"
+                                                Source="{Binding UrlImage}"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="3"
+                                            FontSize="20"
+                                            Text="{Binding Description}" />
+
+                                        <BoxView
+                                            Grid.Row="3"
+                                            Grid.ColumnSpan="3"
+                                            HorizontalOptions="Center"
+                                            MaximumHeightRequest="2"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+
+    </Grid>
+
+</ContentPage>

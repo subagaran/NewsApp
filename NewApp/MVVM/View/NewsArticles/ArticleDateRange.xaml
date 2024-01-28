@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="NewsApp.MVVM.View.NewsArticles.ArticleDateRange"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dt="clr-namespace:NewsApp.MVVM.ViewModel.NewsArticles"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="dt:NewsArticleHistoryViewModel">
+
+
+    <Frame
+        Margin="0"
+        Padding="0"
+        BackgroundColor="Transparent"
+        BorderColor="Transparent"
+        WidthRequest="350">
+
+        <Grid
+            BackgroundColor="White"
+            ColumnSpacing="5"
+            RowDefinitions="Auto,Auto,Auto,Auto"
+            RowSpacing="10">
+
+            <Image
+                Grid.Row="0"
+                Aspect="AspectFill"
+                BackgroundColor="Aqua"
+                HeightRequest="70"
+                MaximumHeightRequest="80"
+                MinimumHeightRequest="60" />
+
+            <Label
+                x:Name="NameLbl"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                LineBreakMode="WordWrap"
+                StyleClass="LblWhiteR5"
+                Text="Custom Date"
+                VerticalOptions="Center" />
+
+            <Grid
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="Transparent"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    Grid.Column="0"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Start Date"
+                    TextColor="{StaticResource Primary}"
+                    VerticalOptions="CenterAndExpand" />
+
+                <Frame
+                    Grid.Column="1"
+                    Padding="2,2,2,2"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    VerticalOptions="Center">
+
+                    <DatePicker
+                        Margin="0"
+                        BackgroundColor="Transparent"
+                        Date="{Binding StartDateRange}"
+                        DateSelected="DatePicker_DateSelected"
+                        FontSize="16"
+                        Format="yyyy-MMM-dd"
+                        HeightRequest="45"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+
+            <Grid
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                BackgroundColor="Transparent"
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10"
+                HorizontalOptions="CenterAndExpand">
+                <Label
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Text="End Date"
+                    TextColor="{StaticResource Primary}"
+                    VerticalOptions="Center" />
+
+                <Frame
+                    Grid.Column="1"
+                    Padding="2,2,2,2"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    VerticalOptions="Center">
+                    <DatePicker
+                        Margin="0"
+                        BackgroundColor="Transparent"
+                        Date="{Binding EndDateRange}"
+                        DateSelected="DatePicker_DateSelected"
+                        FontSize="16"
+                        Format="yyyy-MMM-dd"
+                        HeightRequest="45"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
+                </Frame>
+            </Grid>
+
+
+            <Grid
+                Grid.Row="3"
+                Padding="5"
+                ColumnDefinitions=".4*,*"
+                ColumnSpacing="5">
+
+                <Button
+                    Grid.Column="0"
+                    Margin="5"
+                    Padding="10,8,10,8"
+                    BackgroundColor="White"
+                    Clicked="Cancelbtn_Clicked"
+                    CornerRadius="10"
+                    Text="Cancel"
+                    TextColor="Black" />
+
+                <Button
+                    Grid.Column="2"
+                    Padding="10,8,10,8"
+                    BackgroundColor="{StaticResource MainButtonColor}"
+                    Clicked="Button_Clicked_1"
+                    Command="{Binding GetLastMonthArticlesCommand}"
+                    CornerRadius="8"
+                    Text="GO" />
+            </Grid>
+
+        </Grid>
+    </Frame>
+</toolkit:Popup>

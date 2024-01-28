@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NewApp.MVVM.View.NewsArticles.NewsArticleHistoryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:NewsApp.MVVM.Model"
+    xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.NewsArticles"
+    Title="Sort News Aticles"
+    x:DataType="viewmodel:NewsArticleHistoryViewModel">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid
+            Grid.Row="0"
+            Padding="10,5,10,5"
+            ColumnDefinitions="Auto,*"
+            VerticalOptions="Center">
+
+            <Grid
+                Grid.Column="1"
+                ColumnDefinitions="Auto,Auto,Auto,Auto,Auto"
+                HorizontalOptions="End">
+
+                <Button
+                    x:Name="last7days"
+                    Grid.Column="1"
+                    Padding="8"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    BorderWidth="1"
+                    Command="{Binding GetDateRangeCommand}"
+                    HorizontalOptions="Center"
+                    Pressed="todayBtn_Pressed"
+                    Text="Date Picker"
+                    TextColor="{StaticResource Primary}"
+                    VerticalOptions="Center" />
+
+            </Grid>
+        </Grid>
+
+
+
+        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center">
+            <Label Text="{Binding ShowMessage}" VerticalTextAlignment="Center" />
+        </HorizontalStackLayout>
+
+        <ScrollView Grid.Row="1">
+
+            <CollectionView
+                x:Name="NewsArticleCollection"
+                BackgroundColor="Transparent"
+                EmptyView="No Data Found"
+                HorizontalOptions="CenterAndExpand"
+                ItemsSource="{Binding Article}"
+                VerticalOptions="Start">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Articles">
+                        <StackLayout>
+                            <Frame
+                                Margin="5,2,5,2"
+                                Padding="10"
+                                BorderColor="Transparent">
+
+                                <StackLayout Orientation="Vertical">
+                                    <Grid
+                                        ColumnDefinitions="Auto,*"
+                                        ColumnSpacing="10"
+                                        RowDefinitions="*,*,*,*">
+
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding Author}"
+                                            TextColor="Black" />
+
+                                        <Grid
+                                            Grid.Row="1"
+                                            Grid.ColumnSpan="4"
+                                            ColumnDefinitions="*,*">
+
+                                            <Image
+                                                Grid.Row="0"
+                                                HeightRequest="150"
+                                                Source="{Binding UrlImage}"
+                                                VerticalOptions="Start"
+                                                WidthRequest="150" />
+                                            <Label
+                                                Grid.Column="1"
+                                                FontAttributes="Bold"
+                                                StyleClass="LblBlackR2"
+                                                Text="{Binding Description}" />
+                                        </Grid>
+
+
+                                    </Grid>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

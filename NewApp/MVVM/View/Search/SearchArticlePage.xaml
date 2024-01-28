@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NewsApp.MVVM.View.Search.SearchArticlePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:NewsApp.MVVM.Model"
+    xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.Home"
+    Title="SearchArticlePage"
+    x:DataType="viewmodel:HomeViewModel">
+
+    <Grid
+        Padding="1"
+        RowDefinitions="Auto,50,*"
+        RowSpacing="5">
+
+        <Label
+            Grid.Row="0"
+            Margin="10"
+            FontAttributes="Bold"
+            HorizontalOptions="CenterAndExpand"
+            StyleClass="LblBlackR7"
+            Text="Search Article" />
+
+        <Frame
+            Grid.Row="1"
+            Margin="0,0,0,0"
+            Padding="2">
+
+            <Grid
+                Padding="10,0,10,0"
+                ColumnDefinitions="Auto,.5*"
+                ColumnSpacing="5">
+                <Image
+                    Grid.Column="0"
+                    Source="search.png"
+                    WidthRequest="15" />
+                <Entry
+                    Grid.Column="1"
+                    ClearButtonVisibility="WhileEditing"
+                    Placeholder="Supplier Search"
+                    Text="{Binding SearchKeyword}"
+                    TextColor="Gray" />
+
+            </Grid>
+
+        </Frame>
+
+        <ScrollView Grid.Row="2">
+
+            <CollectionView
+                x:Name="NewsArticleCollection"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Start"
+                ItemsSource="{Binding Article}"
+                RemainingItemsThreshold="1"
+                VerticalOptions="Start">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Articles">
+                        <StackLayout>
+                            <Frame
+                                Margin="5,2,5,2"
+                                Padding="10"
+                                BorderColor="Transparent">
+
+                                <StackLayout Orientation="Vertical">
+                                    <Grid
+                                        ColumnDefinitions="Auto,*,*"
+                                        ColumnSpacing="10"
+                                        RowDefinitions="*,Auto,*,*">
+
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding Author}"
+                                            TextColor="Black" />
+
+
+                                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                                            <Image
+                                                HorizontalOptions="StartAndExpand"
+                                                MaximumHeightRequest="150"
+                                                MaximumWidthRequest="200"
+                                                Source="{Binding UrlImage}"
+                                                VerticalOptions="Start" />
+                                        </Grid>
+
+                                        <Label
+                                            Grid.Row="2"
+                                            FontAttributes="Bold"
+                                            StyleClass="LblBlackR2"
+                                            Text="{Binding Description}" />
+
+
+                                    </Grid>
+
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+
+    </Grid>
+
+</ContentPage>
