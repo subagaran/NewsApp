@@ -10,8 +10,8 @@ public partial class NewsArticleHistoryPage : ContentPage
 	{
 		InitializeComponent();
 		_newsArticleHistoryViewModel = newsArticleHistoryViewModel;
-		BindingContext = _newsArticleHistoryViewModel;
-	}
+		BindingContext = _newsArticleHistoryViewModel;		 
+    }
 
     private void todayBtn_Pressed(object sender, EventArgs e)
     {

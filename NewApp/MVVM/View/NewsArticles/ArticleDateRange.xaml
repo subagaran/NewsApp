@@ -24,7 +24,7 @@
             <Image
                 Grid.Row="0"
                 Aspect="AspectFill"
-                BackgroundColor="Aqua"
+                BackgroundColor="CadetBlue"
                 HeightRequest="70"
                 MaximumHeightRequest="80"
                 MinimumHeightRequest="60" />
@@ -37,6 +37,7 @@
                 LineBreakMode="WordWrap"
                 StyleClass="LblWhiteR5"
                 Text="Custom Date"
+                TextColor="White"
                 VerticalOptions="Center" />
 
             <Grid

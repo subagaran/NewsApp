@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:NewsApp.MVVM.Model"
     xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.Home"
-    Title="SearchArticlePage"
+    Title="Search Articles"
     x:DataType="viewmodel:HomeViewModel">
 
     <Grid
@@ -37,7 +37,7 @@
                 <Entry
                     Grid.Column="1"
                     ClearButtonVisibility="WhileEditing"
-                    Placeholder="Supplier Search"
+                    Placeholder="Search"
                     Text="{Binding SearchKeyword}"
                     TextColor="Gray" />
 
@@ -52,45 +52,56 @@
                 BackgroundColor="Transparent"
                 HorizontalOptions="Start"
                 ItemsSource="{Binding Article}"
-                RemainingItemsThreshold="1"
                 VerticalOptions="Start">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Articles">
-                        <StackLayout>
+                        <StackLayout BackgroundColor="#d6dce2">
+
                             <Frame
                                 Margin="5,2,5,2"
                                 Padding="10"
-                                BorderColor="Transparent">
+                                BackgroundColor="White"
+                                CornerRadius="20">
 
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference NewsArticleCollection}, Path=BindingContext.GoToArticleVewCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
                                 <StackLayout Orientation="Vertical">
                                     <Grid
                                         ColumnDefinitions="Auto,*,*"
                                         ColumnSpacing="10"
-                                        RowDefinitions="*,Auto,*,*">
+                                        RowDefinitions="*,Auto,Auto,*,*">
 
                                         <Label
                                             Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            FontSize="25"
                                             Text="{Binding Author}"
                                             TextColor="Black" />
 
 
                                         <Grid Grid.Row="1" Grid.ColumnSpan="3">
                                             <Image
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="Center"
                                                 MaximumHeightRequest="150"
-                                                MaximumWidthRequest="200"
+                                                MaximumWidthRequest="250"
                                                 Source="{Binding UrlImage}"
                                                 VerticalOptions="Start" />
                                         </Grid>
 
                                         <Label
                                             Grid.Row="2"
-                                            FontAttributes="Bold"
-                                            StyleClass="LblBlackR2"
+                                            Grid.ColumnSpan="3"
+                                            FontSize="20"
                                             Text="{Binding Description}" />
 
-
+                                        <BoxView
+                                            Grid.Row="3"
+                                            Grid.ColumnSpan="3"
+                                            HorizontalOptions="Center"
+                                            MaximumHeightRequest="2"
+                                            VerticalOptions="Center" />
                                     </Grid>
 
                                 </StackLayout>

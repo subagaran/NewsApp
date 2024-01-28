@@ -5,14 +5,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:model="clr-namespace:NewsApp.MVVM.Model"
     xmlns:viewmodel="clr-namespace:NewsApp.MVVM.ViewModel.Home"
-    Title="Articles"
+    Title="Home"
     x:DataType="viewmodel:HomeViewModel"
     BackgroundColor="#d6dce2">
 
     <Grid
         Padding="1"
         RowDefinitions="Auto,Auto,*"
-        RowSpacing="5">
+        RowSpacing="10">
 
         <Frame Grid.Row="0">
 
@@ -33,7 +33,6 @@
                         Text="{Binding NewsArticlesCount}"
                         VerticalOptions="Center" />
                 </VerticalStackLayout>
-
 
             </Grid>
 
@@ -73,23 +72,25 @@
         </Grid>
 
 
-        <ScrollView Grid.Row="3">
+        <ScrollView Grid.Row="3" BackgroundColor="Transparent">
 
             <CollectionView
                 x:Name="NewsArticleCollection"
-                BackgroundColor="White"
+                BackgroundColor="Transparent"
                 HorizontalOptions="Start"
                 ItemsSource="{Binding Article}"
-                RemainingItemsThreshold="1"
                 VerticalOptions="Start">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Articles">
-                        <StackLayout>
+                        <StackLayout BackgroundColor="#d6dce2">
+
                             <Frame
-                                Margin="5,2,5,2"
+                                Margin="15,2,5,2"
                                 Padding="10"
-                                BorderColor="Transparent">
+                                BackgroundColor="White"
+                                CornerRadius="20">
+
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:Reference NewsArticleCollection}, Path=BindingContext.GoToArticleVewCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
@@ -109,9 +110,9 @@
 
                                         <Grid Grid.Row="1" Grid.ColumnSpan="3">
                                             <Image
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="Center"
                                                 MaximumHeightRequest="150"
-                                                MaximumWidthRequest="200"
+                                                MaximumWidthRequest="250"
                                                 Source="{Binding UrlImage}"
                                                 VerticalOptions="Start" />
                                         </Grid>

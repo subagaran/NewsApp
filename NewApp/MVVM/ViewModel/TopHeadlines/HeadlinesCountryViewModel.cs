@@ -20,8 +20,9 @@ namespace NewsApp.MVVM.ViewModel.TopHeadlines
         public ObservableCollection<Headlines> AllTopHeadlines { get; set; } = new ObservableCollection<Headlines>();
 
         public HeadlinesCountryViewModel()
-        {
-            GetTopHeadlinesBasedOnCategoryFromApi("us").Wait();
+        { 
+            Task.Run(async () => await GetTopHeadlinesBasedOnCategoryFromApi("us"));
+
         }
         public async Task GetTopHeadlinesBasedOnCategoryFromApi(string cou)
         {

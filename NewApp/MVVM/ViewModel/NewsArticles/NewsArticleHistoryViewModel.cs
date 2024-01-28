@@ -27,7 +27,7 @@ namespace NewsApp.MVVM.ViewModel.NewsArticles
         {
             //Task.Run(() => LoadNewsArticles().Wait());
 
-            GetLastMonthArticles();
+            //GetLastMonthArticles();
         }
 
         public Task LoadNewsArticles()

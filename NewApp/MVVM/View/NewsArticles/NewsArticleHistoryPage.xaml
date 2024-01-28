@@ -22,17 +22,17 @@
                 HorizontalOptions="End">
 
                 <Button
-                    x:Name="last7days"
+                    x:Name="daterange"
                     Grid.Column="1"
                     Padding="8"
-                    BackgroundColor="Transparent"
+                    BackgroundColor="#4c56eb"
                     BorderColor="Transparent"
                     BorderWidth="1"
                     Command="{Binding GetDateRangeCommand}"
                     HorizontalOptions="Center"
                     Pressed="todayBtn_Pressed"
                     Text="Date Picker"
-                    TextColor="{StaticResource Primary}"
+                    TextColor="{StaticResource White}"
                     VerticalOptions="Center" />
 
             </Grid>
@@ -70,6 +70,8 @@
 
                                         <Label
                                             Grid.Column="0"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
                                             Text="{Binding Author}"
                                             TextColor="Black" />
 

@@ -47,6 +47,7 @@ namespace NewApp
             builder.Services.AddTransient<TopHeadlinesViewModel>();
             builder.Services.AddTransient<ViewArticleViewModel>();
             builder.Services.AddTransient<TopHeadlinesViewModel>();
+            builder.Services.AddTransient<HeadlinesCountryViewModel>();
 
             return builder.Build();
         }

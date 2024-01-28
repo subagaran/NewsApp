@@ -50,7 +50,6 @@ public partial class TopHeadlinesPage : ContentPage
 
                 default:
                     GlobalVariables.SetCategory("Entertainment");
-
                     Entertainment.BackgroundColor = Color.FromRgb(40, 122, 250);
                     Business.BackgroundColor = Color.FromRgb(132, 171, 232);
                     Health.BackgroundColor = Color.FromRgb(132, 171, 232);
