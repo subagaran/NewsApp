@@ -1,0 +1,158 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp3
+{
+    public partial class Form1 : Form
+    { 
+        private Dictionary<string, List<string>> menuStructure;
+        public Form1()
+        {
+            InitializeComponent();
+
+  
+            listViewMenus.View = View.Details; 
+            listViewMenus.Columns.Add("Menu", -2, HorizontalAlignment.Left);
+ 
+
+            // Form settings
+            this.Text = "Expandable Menu with ListView";
+            this.Size = new Size(400, 300);
+
+            // Populate the menu structure
+            InitializeMenuStructure();
+            PopulateListView();
+
+        }
+        private void PopulateListView()
+        {
+            listViewMenus.Items.Clear();
+
+            // Populate only the main menu items initially
+            foreach (var menu in menuStructure.Keys)
+            {
+                var listViewItem = new ListViewItem(menu)
+                {
+                    Tag = menu // Use the tag to track the menu name
+                };
+                listViewMenus.Items.Add(listViewItem);
+            }
+        }
+
+        private void InitializeMenuStructure()
+        {
+            // Define main menus and their submenus
+            menuStructure = new Dictionary<string, List<string>>
+        {
+            { "Files", null },
+            { "Customer", null },
+            { "Reports", new List<string> { "Customer", "Supplier", "Common" } },
+            { "Views", new List<string> { "Customer", "Supplier", "Common" } },
+            { "Settings", null }
+        };
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewMenus_ItemActivate(object sender, EventArgs e)
+        { 
+            //var selectedItem = listViewMenus.SelectedItems[0];
+            //var selectedMenu = selectedItem.Tag.ToString();
+
+            //// Collapse all submenus first
+            //CollapseAllSubmenus();
+
+            //// Check if it has submenus
+            //if (menuStructure[selectedMenu] != null)
+            //{
+            //    // Check if the submenus are already expanded
+            //    int index = listViewMenus.Items.IndexOf(selectedItem);
+            //    bool isExpanded = index + 1 < listViewMenus.Items.Count &&
+            //                      listViewMenus.Items[index + 1].Tag?.ToString() == $"{selectedMenu}-submenu";
+
+            //    if (isExpanded)
+            //    {
+            //        // Collapse: Remove submenu items
+            //        while (index + 1 < listViewMenus.Items.Count &&
+            //               listViewMenus.Items[index + 1].Tag?.ToString() == $"{selectedMenu}-submenu")
+            //        {
+            //            listViewMenus.Items.RemoveAt(index + 1);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        // Expand: Add submenu items below the selected item
+            //        var submenus = menuStructure[selectedMenu];
+            //        foreach (var submenu in submenus)
+            //        {
+            //            var submenuItem = new ListViewItem($"   {submenu}") // Indented for submenu
+            //            {
+            //                Tag = $"{selectedMenu}-submenu"
+            //            };
+            //            listViewMenus.Items.Insert(++index, submenuItem);
+            //        }
+            //    }
+            //}
+
+
+            }
+
+        private void CollapseAllSubmenus()
+        {
+            for (int i = listViewMenus.Items.Count - 1; i >= 0; i--)
+            {
+                // Remove items tagged as submenus
+                if (listViewMenus.Items[i].Tag?.ToString()?.EndsWith("-submenu") == true)
+                {
+                    listViewMenus.Items.RemoveAt(i);
+                }
+            }
+        }
+
+        private void listViewMenus_Click(object sender, EventArgs e)
+        {
+            var selectedItem = listViewMenus.SelectedItems[0];
+            var selectedMenu = selectedItem.Tag.ToString();
+
+            // Collapse all submenus first
+            CollapseAllSubmenus();
+
+            // Check if it has submenus
+            if (menuStructure[selectedMenu] != null)
+            {
+                // Check if the submenus are already expanded
+                int index = listViewMenus.Items.IndexOf(selectedItem);
+                bool isExpanded = index + 1 < listViewMenus.Items.Count &&
+                                  listViewMenus.Items[index + 1].Tag?.ToString() == $"{selectedMenu}-submenu";
+
+                if (isExpanded)
+                {
+                    // Collapse: Remove submenu items
+                    while (index + 1 < listViewMenus.Items.Count &&
+                           listViewMenus.Items[index + 1].Tag?.ToString() == $"{selectedMenu}-submenu")
+                    {
+                        listViewMenus.Items.RemoveAt(index + 1);
+                    }
+                }
+                else
+                {
+                    // Expand: Add submenu items below the selected item
+                    var submenus = menuStructure[selectedMenu];
+                    foreach (var submenu in submenus)
+                    {
+                        var submenuItem = new ListViewItem($"   {submenu}") // Indented for submenu
+                        {
+                            Tag = $"{selectedMenu}-submenu"
+                        };
+                        listViewMenus.Items.Insert(++index, submenuItem);
+                    }
+                }
+            }
+        }
+    }
+}
